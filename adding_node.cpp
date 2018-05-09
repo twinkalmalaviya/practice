@@ -20,9 +20,12 @@ public:
 		if (head == NULL) {
 			head = tmp;
 			tail = tmp;
-		} else {
+
+		}
+		/* add at end */
+		else {
 			tail->next = tmp;
-			tail = tail->next;
+			tail = tmp;
 		}
 	}
 
@@ -30,13 +33,31 @@ public:
 		return head;
 	}
 
-	static void display(node *head_temp) {
+	void display(node *head_temp) {
 		if (head_temp == NULL) {
 			cout << "NULL" << endl;
 		} else {
 			cout << head_temp->data << endl;
 			display(head_temp->next);
 		}
+	}
+	void del(node *del_temp) {
+		if (del_temp == NULL) {
+			cout << "NULL" << endl;
+		} else {
+			/* delete from start */
+			head = del_temp->next;
+			delete del_temp;
+		}
+	}
+
+	bool search(node *Search_temp, int number) {
+		while (Search_temp != NULL) {
+			if (Search_temp->data == number)
+				return true;
+			Search_temp = Search_temp->next;
+		}
+		return false;
 	}
 };
 
@@ -48,5 +69,14 @@ int main() {
 	a.add_node(5);
 
 	a.display(a.gethead());
+	a.del(a.gethead());
+	a.add_node(7);
+	a.add_node(8);
+	a.del(a.gethead());
+
+	a.del(a.gethead());
+	a.add_node(3);
+	a.display(a.gethead());
+	cout << a.search(a.gethead(), 10) << endl;
 	return 0;
 }
