@@ -68,6 +68,19 @@ public:
 		}
 		return false;
 	}
+	int sizeof_linkedlist(node *head_temp) {
+		if (head_temp == NULL) {
+			cout << "NULL" << endl;
+			return 0;
+		} else {
+			int count = 0;
+			while (head_temp != NULL) {
+				count++;
+				head_temp = head_temp->next;
+			}
+			return ((sizeof(node)) * count);
+		}
+	}
 };
 
 int main() {
@@ -76,7 +89,9 @@ int main() {
 	a.add_node(2, 1);
 	a.add_node(3, 2);
 	a.add_node(4, 3);
-
+	cout << "size of node = " << sizeof(node) << endl;
+	cout << "size of linked list = " << a.sizeof_linkedlist(a.gethead())
+		 << endl;
 	a.display(a.gethead());
 	a.del(a.gethead());
 	a.display(a.gethead());
