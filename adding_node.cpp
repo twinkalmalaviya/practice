@@ -9,23 +9,32 @@ struct node {
 
 class linked_list {
 private:
-	node *head = NULL, *tail = NULL;
+	node *head = NULL;
 
 public:
-	void add_node(int n) {
+	void add_node(int n, int position) {
 		node *tmp = new node;
 		tmp->data = n;
 		tmp->next = NULL;
 
 		if (head == NULL) {
 			head = tmp;
-			tail = tmp;
+			return;
 
 		}
-		/* add at end */
-		else {
-			tail->next = tmp;
-			tail = tmp;
+		/* add at given position */
+		else if (position == 1) {
+			tmp->next = head;
+			head = tmp;
+			return;
+		} else {
+			node *currentNode = head;
+			while ((position - 1 > 1) && (currentNode->next != NULL)) {
+				currentNode = currentNode->next;
+				position--;
+			}
+			tmp->next = currentNode->next;
+			currentNode->next = tmp;
 		}
 	}
 
@@ -63,19 +72,23 @@ public:
 
 int main() {
 	linked_list a;
-	a.add_node(1);
-	a.add_node(2);
-	a.add_node(9);
-	a.add_node(5);
+	a.add_node(1, 1);
+	a.add_node(2, 1);
+	a.add_node(3, 2);
+	a.add_node(4, 3);
 
 	a.display(a.gethead());
 	a.del(a.gethead());
-	a.add_node(7);
-	a.add_node(8);
+	a.display(a.gethead());
+	a.add_node(5, 7);
+	a.display(a.gethead());
+	a.add_node(6, 11);
+	a.display(a.gethead());
 	a.del(a.gethead());
-
+	a.display(a.gethead());
 	a.del(a.gethead());
-	a.add_node(3);
+	a.display(a.gethead());
+	a.add_node(7, 4);
 	a.display(a.gethead());
 	cout << a.search(a.gethead(), 10) << endl;
 	return 0;
