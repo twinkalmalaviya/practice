@@ -83,12 +83,45 @@ public:
 	}
 };
 
+class function_list{
+  public:
+  void Remove_duplicate_node( node *head)
+{
+    node *ptr1, *ptr2, *dup;
+    ptr1 = head;
+ 
+    /* check  elements one by one */
+    while (ptr1 != NULL && ptr1->next != NULL)
+    {
+        ptr2 = ptr1;
+ 
+        /* Compare the selected element with rest
+           of the elements */
+        while (ptr2->next != NULL)
+        {
+            /* If duplicate then delete it */
+            if (ptr1->data == ptr2->next->data)
+            {
+              
+                dup = ptr2->next;
+                ptr2->next = ptr2->next->next;
+                delete(dup);
+            }
+            else /* This is tricky */
+                ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+    }
+}
+};
 int main() {
 	linked_list a;
-	a.add_node(1, 1);
+	function_list b;
 	a.add_node(2, 1);
-	a.add_node(3, 2);
-	a.add_node(4, 3);
+	a.add_node(2, 1);
+	a.add_node(2, 2);
+	a.add_node(2, 3);
+	b.Remove_duplicate_node(a.gethead());
 	cout << "size of node = " << sizeof(node) << endl;
 	cout << "size of linked list = " << a.sizeof_linkedlist(a.gethead())
 		 << endl;
@@ -104,7 +137,10 @@ int main() {
 	a.del(a.gethead());
 	a.display(a.gethead());
 	a.add_node(7, 4);
+	a.add_node(7, 4);
+	a.add_node(7, 4);
+	b.Remove_duplicate_node(a.gethead());
 	a.display(a.gethead());
-	cout << a.search(a.gethead(), 10) << endl;
+	cout << a.search(a.gethead(), 7) << endl;
 	return 0;
 }
