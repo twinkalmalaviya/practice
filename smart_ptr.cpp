@@ -12,11 +12,7 @@ struct smart_ptr
    T *ptr;  // Actual pointer  
    // Constructor 
    smart_ptr(T *p ) { ptr = p; }  
-   smart_ptr(const smart_ptr <T> &rhs){
-      // ptr = new T(*const_cast<T*>(rhs.ptr));
-      ptr = new T(*rhs.ptr);
-     //  ptr = *in_ptr;
-     }
+   smart_ptr(const smart_ptr <T> &)=delete;
   
    // Destructor 
    ~smart_ptr() { delete(ptr); }   
@@ -32,6 +28,8 @@ int main()
 {
     // 1. Should work with primitive data types
     smart_ptr<int> i_ptr(new int);
+
+   // ref2 = var;
 
     *i_ptr = 5;
 
